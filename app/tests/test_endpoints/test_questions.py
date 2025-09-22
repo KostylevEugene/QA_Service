@@ -4,21 +4,19 @@ import pytest
 @pytest.mark.asyncio
 async def test_create_question(async_client):
     test_json = {"text": "Is it a Test Question?"}
-    response = await async_client.post(
-        "/questions/", json=test_json
-    )
+    response = await async_client.post("/questions/", json=test_json)
     assert response.status_code == 201
     data = response.json()
     assert data["id"] is not None
     assert data["text"] == test_json["text"]
 
+
 @pytest.mark.asyncio
 async def test_create_question_with_existing_text(question, async_client):
     test_json = {"text": question.text}
-    response = await async_client.post(
-        "/questions/", json=test_json
-    )
+    response = await async_client.post("/questions/", json=test_json)
     assert response.status_code == 409
+
 
 @pytest.mark.asyncio
 async def test_get_question(question, answer, async_client):
@@ -33,12 +31,13 @@ async def test_get_question(question, answer, async_client):
 
 
 @pytest.mark.asyncio
-async def test_get_questions(question, another_question,async_client):
+async def test_get_questions(question, another_question, async_client):
     response = await async_client.get("/questions/")
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, list)
     assert data[0]["text"] in [question.text, another_question.text]
+
 
 @pytest.mark.asyncio
 async def test_edit_question(question, async_client):
@@ -50,6 +49,7 @@ async def test_edit_question(question, async_client):
     data = response.json()
     assert data["id"] == question.id
     assert data["text"] == edit_json["text"]
+
 
 @pytest.mark.asyncio
 async def test_delete_question(question, async_client):

@@ -2,7 +2,6 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app.services import AnswerService, QuestionService
-from app.repositories import AnswerRepository, QuestionRepository
 from app.db.connection import AsyncSessionLocal
 
 

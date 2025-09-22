@@ -70,4 +70,6 @@ async def override_get_db(db_session):
 
 @pytest_asyncio.fixture
 def async_client():
-    return AsyncClient(transport=ASGITransport(app=app), base_url='http://test')
+    return AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    )
